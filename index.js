@@ -427,78 +427,145 @@ const loginPage = `
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>订阅管理系统</title>
+  <title>订阅管理系统 - 登录</title>
   <link href="https://cdnjs.cloudflare.com/ajax/libs/tailwindcss/2.2.19/tailwind.min.css" rel="stylesheet">
-  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet">
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
   <style>
+    :root {
+      --primary: #6366f1;
+      --glass-bg: rgba(255, 255, 255, 0.7);
+      --glass-border: rgba(255, 255, 255, 0.5);
+      --glass-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.15);
+    }
+    
     body {
       background-image: url('https://github.com/KurisuRakko/picx-images-hosting/raw/master/IMG_0439-up2x-denoise3x.54y7qeyqwk.webp');
       background-size: cover;
       background-position: center;
       background-attachment: fixed;
-      font-family: 'Segoe UI', Roboto, sans-serif;
+      font-family: 'Inter', system-ui, -apple-system, sans-serif;
       margin: 0;
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      overflow: hidden;
     }
-    .login-box {
+    
+    .glass-card {
       background: rgba(255, 255, 255, 0.65);
-      backdrop-filter: blur(20px);
-      -webkit-backdrop-filter: blur(20px);
-      border: 1px solid rgba(255, 255, 255, 0.5);
-      box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
-      animation: fadeInUp 0.8s cubic-bezier(0.2, 0.8, 0.2, 1) forwards;
+      backdrop-filter: blur(20px) saturate(180%);
+      -webkit-backdrop-filter: blur(20px) saturate(180%);
+      border: 1px solid rgba(255, 255, 255, 0.4);
+      box-shadow: var(--glass-shadow);
+      border-radius: 24px;
+      overflow: hidden;
+      transform: translateY(20px);
+      opacity: 0;
+      animation: floatUp 0.8s cubic-bezier(0.16, 1, 0.3, 1) forwards;
     }
-    @keyframes fadeInUp {
-      from { opacity: 0; transform: translateY(30px); }
-      to { opacity: 1; transform: translateY(0); }
+
+    @keyframes floatUp {
+      to {
+        transform: translateY(0);
+        opacity: 1;
+      }
     }
-    .btn-primary {
-      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-      transition: all 0.3s;
+
+    .input-group {
+      position: relative;
+      margin-bottom: 1.5rem;
     }
-    .btn-primary:hover {
-      transform: translateY(-2px);
-      box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
-    }
+
     .input-field {
-      transition: all 0.3s;
-      border: 1px solid #e2e8f0;
+      width: 100%;
+      padding: 1rem 1rem 1rem 3rem;
+      background: rgba(255, 255, 255, 0.5);
+      border: 1px solid rgba(255, 255, 255, 0.3);
+      border-radius: 12px;
+      outline: none;
+      transition: all 0.3s ease;
+      font-size: 0.95rem;
+      color: #1f2937;
     }
+
     .input-field:focus {
-      border-color: #667eea;
-      box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.25);
+      background: rgba(255, 255, 255, 0.8);
+      border-color: var(--primary);
+      box-shadow: 0 0 0 4px rgba(99, 102, 241, 0.15);
+      transform: translateY(-1px);
+    }
+
+    .input-icon {
+      position: absolute;
+      left: 1rem;
+      top: 50%;
+      transform: translateY(-50%);
+      color: #6b7280;
+      transition: color 0.3s ease;
+    }
+
+    .input-field:focus + .input-icon {
+      color: var(--primary);
+    }
+
+    .btn-submit {
+      width: 100%;
+      padding: 1rem;
+      background: linear-gradient(135deg, #6366f1 0%, #8b5cf6 100%);
+      color: white;
+      border: none;
+      border-radius: 12px;
+      font-weight: 600;
+      font-size: 1rem;
+      cursor: pointer;
+      transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+      box-shadow: 0 4px 6px -1px rgba(99, 102, 241, 0.3);
+    }
+
+    .btn-submit:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 10px 15px -3px rgba(99, 102, 241, 0.4);
+    }
+
+    .btn-submit:active {
+      transform: translateY(0);
+    }
+
+    h1 {
+      background: linear-gradient(135deg, #4f46e5 0%, #7c3aed 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
     }
   </style>
 </head>
-<body class="flex items-center justify-center min-h-screen">
-  <div class="login-box p-8 rounded-xl w-full max-w-md">
+<body>
+  <div class="glass-card p-10 w-full max-w-md mx-4">
     <div class="text-center mb-8">
-      <h1 class="text-2xl font-bold text-gray-800"><i class="fas fa-calendar-check mr-2"></i>订阅管理系统</h1>
-      <p class="text-gray-600 mt-2">登录管理您的订阅提醒</p>
+      <div class="inline-flex items-center justify-center w-16 h-16 rounded-full bg-indigo-50 mb-4 text-indigo-600 shadow-sm">
+        <i class="fas fa-cube text-2xl"></i>
+      </div>
+      <h1 class="text-3xl font-bold mb-2">欢迎回来</h1>
+      <p class="text-gray-500 text-sm">订阅管理系统</p>
     </div>
     
-    <form id="loginForm" class="space-y-6">
-      <div>
-        <label for="username" class="block text-sm font-medium text-gray-700 mb-1">
-          <i class="fas fa-user mr-2"></i>用户名
-        </label>
-        <input type="text" id="username" name="username" required
-          class="input-field w-full px-4 py-3 rounded-lg text-gray-700 focus:outline-none">
+    <form id="loginForm">
+      <div class="input-group">
+        <input type="text" id="username" name="username" required class="input-field" placeholder="用户名">
+        <i class="fas fa-user input-icon"></i>
       </div>
       
-      <div>
-        <label for="password" class="block text-sm font-medium text-gray-700 mb-1">
-          <i class="fas fa-lock mr-2"></i>密码
-        </label>
-        <input type="password" id="password" name="password" required
-          class="input-field w-full px-4 py-3 rounded-lg text-gray-700 focus:outline-none">
+      <div class="input-group">
+        <input type="password" id="password" name="password" required class="input-field" placeholder="密码">
+        <i class="fas fa-lock input-icon"></i>
       </div>
       
-      <button type="submit" 
-        class="btn-primary w-full py-3 rounded-lg text-white font-medium focus:outline-none">
-        <i class="fas fa-sign-in-alt mr-2"></i>登录
+      <button type="submit" class="btn-submit">
+        <span>登 录</span>
       </button>
       
-      <div id="errorMsg" class="text-red-500 text-center"></div>
+      <div id="errorMsg" class="h-6 text-red-500 text-sm text-center mt-4 transition-opacity duration-300 opacity-0"></div>
     </form>
   </div>
   
@@ -507,11 +574,15 @@ const loginPage = `
       e.preventDefault();
       const username = document.getElementById('username').value;
       const password = document.getElementById('password').value;
-      
+      const errorDiv = document.getElementById('errorMsg');
       const button = e.target.querySelector('button');
-      const originalContent = button.innerHTML;
-      button.innerHTML = '<i class="fas fa-spinner fa-spin mr-2"></i>登录中...';
+      const span = button.querySelector('span');
+      const originalText = span.innerText;
+      
       button.disabled = true;
+      span.innerHTML = '<i class="fas fa-circle-notch fa-spin mr-2"></i>登录中...';
+      button.style.opacity = '0.8';
+      errorDiv.style.opacity = '0';
       
       try {
         const response = await fetch('/api/login', {
@@ -523,18 +594,38 @@ const loginPage = `
         const result = await response.json();
         
         if (result.success) {
-          window.location.href = '/admin';
+          span.innerHTML = '<i class="fas fa-check mr-2"></i>成功';
+          button.style.background = 'linear-gradient(135deg, #10b981 0%, #059669 100%)';
+          setTimeout(() => { window.location.href = '/admin'; }, 500);
         } else {
-          document.getElementById('errorMsg').textContent = result.message || '用户名或密码错误';
-          button.innerHTML = originalContent;
+          errorDiv.textContent = result.message || '用户名或密码错误';
+          errorDiv.style.opacity = '1';
+          const card = document.querySelector('.glass-card');
+          card.style.animation = 'none';
+          card.offsetHeight; 
+          card.style.animation = 'shake 0.5s cubic-bezier(.36,.07,.19,.97) both';
+          span.innerText = originalText;
           button.disabled = false;
+          button.style.opacity = '1';
+          button.style.background = '';
         }
       } catch (error) {
-        document.getElementById('errorMsg').textContent = '发生错误，请稍后再试';
-        button.innerHTML = originalContent;
+        errorDiv.textContent = '发生错误，请稍后再试';
+        errorDiv.style.opacity = '1';
+        span.innerText = originalText;
         button.disabled = false;
+        button.style.opacity = '1';
       }
     });
+
+    const styleSheet = document.createElement("style");
+    styleSheet.innerText = \`@keyframes shake {
+      10%, 90% { transform: translate3d(-1px, 0, 0); }
+      20%, 80% { transform: translate3d(2px, 0, 0); }
+      30%, 50%, 70% { transform: translate3d(-4px, 0, 0); }
+      40%, 60% { transform: translate3d(4px, 0, 0); }
+    }\`;
+    document.head.appendChild(styleSheet);
   </script>
 </body>
 </html>
@@ -549,364 +640,266 @@ const adminPage = `
   <title>订阅管理系统</title>
   <link href="https://cdnjs.cloudflare.com/ajax/libs/tailwindcss/2.2.19/tailwind.min.css" rel="stylesheet">
   <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
   <style>
-    /* Global Background & Theme */
+    :root {
+      --primary: #6366f1;
+      --secondary: #8b5cf6;
+      --success: #10b981;
+      --warning: #f59e0b;
+      --danger: #ef4444;
+      --dark: #1f2937;
+      --light: #f3f4f6;
+      --glass-bg: rgba(255, 255, 255, 0.65);
+      --glass-border: rgba(255, 255, 255, 0.4);
+      --glass-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.15);
+    }
+
     body {
       background-image: url('https://github.com/KurisuRakko/picx-images-hosting/raw/master/IMG_0439-up2x-denoise3x.54y7qeyqwk.webp');
       background-size: cover;
       background-position: center;
       background-attachment: fixed;
-      font-family: 'Segoe UI', system-ui, sans-serif;
+      font-family: 'Inter', system-ui, -apple-system, sans-serif;
+      margin: 0;
+      color: #374151;
     }
-    
-    /* Glassmorphism System */
-    .glass, nav, .table-container, .modal-container .bg-white {
-      background: rgba(255, 255, 255, 0.7) !important;
-      backdrop-filter: blur(12px) !important;
-      -webkit-backdrop-filter: blur(12px) !important;
-      border: 1px solid rgba(255, 255, 255, 0.4);
+
+    /* Scrollbar */
+    ::-webkit-scrollbar { width: 8px; height: 8px; }
+    ::-webkit-scrollbar-track { background: rgba(255, 255, 255, 0.1); }
+    ::-webkit-scrollbar-thumb { background: rgba(99, 102, 241, 0.5); border-radius: 4px; }
+    ::-webkit-scrollbar-thumb:hover { background: rgba(99, 102, 241, 0.7); }
+
+    /* Glassmorphism Utilities */
+    .glass {
+      background: var(--glass-bg);
+      backdrop-filter: blur(20px) saturate(180%);
+      -webkit-backdrop-filter: blur(20px) saturate(180%);
+      border: 1px solid var(--glass-border);
+      box-shadow: var(--glass-shadow);
     }
-    
-    /* Fix for modal content which has bg-white in HTML */
-    .modal-container .bg-white {
-      background: rgba(255, 255, 255, 0.9) !important;
-      backdrop-filter: blur(16px) !important;
+
+    .glass-card {
+      background: var(--glass-bg);
+      backdrop-filter: blur(20px) saturate(180%);
+      -webkit-backdrop-filter: blur(20px) saturate(180%);
+      border: 1px solid var(--glass-border);
+      box-shadow: var(--glass-shadow);
+      border-radius: 20px;
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
     }
-    
+
+    .glass-card:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 12px 40px 0 rgba(31, 38, 135, 0.2);
+    }
+
+    /* Navigation */
+    nav {
+      background: rgba(255, 255, 255, 0.75) !important;
+      backdrop-filter: blur(20px) !important;
+      border-bottom: 1px solid var(--glass-border);
+      position: sticky;
+      top: 0;
+      z-index: 50;
+      box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05);
+    }
+
     /* Animations */
-    @keyframes fadeInUp {
+    @keyframes floatUp {
       from { opacity: 0; transform: translateY(20px); }
       to { opacity: 1; transform: translateY(0); }
     }
-    
+
     .animate-entrance {
-      animation: fadeInUp 0.8s cubic-bezier(0.2, 0.8, 0.2, 1) forwards;
-    }
-    
-    /* Table Row Hover Effect */
-    tbody, tbody tr {
-      background-color: transparent !important;
-    }
-    thead {
-        background-color: rgba(249, 250, 251, 0.3) !important;
-    }
-    tbody tr {
-      transition: all 0.2s ease;
-    }
-    tbody tr:hover {
-      background-color: rgba(255, 255, 255, 0.5) !important;
-      transform: scale(1.002);
-      box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+      animation: floatUp 0.6s cubic-bezier(0.16, 1, 0.3, 1) forwards;
     }
 
-    .btn-primary { background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1); }
-    .btn-primary:hover { transform: translateY(-2px); box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1); }
-    .btn-danger { background: linear-gradient(135deg, #f87171 0%, #dc2626 100%); transition: all 0.3s; }
-    .btn-danger:hover { transform: translateY(-2px); box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1); }
-    .btn-success { background: linear-gradient(135deg, #34d399 0%, #059669 100%); transition: all 0.3s; }
-    .btn-success:hover { transform: translateY(-2px); box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1); }
-    .btn-warning { background: linear-gradient(135deg, #fbbf24 0%, #d97706 100%); transition: all 0.3s; }
-    .btn-warning:hover { transform: translateY(-2px); box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1); }
-    .btn-info { background: linear-gradient(135deg, #3b82f6 0%, #60a5fa 100%); transition: all 0.3s; }
-    .btn-info:hover { transform: translateY(-2px); box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1); }
-    .table-container { box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06); }
-    .modal-container { backdrop-filter: blur(8px); }
-    .readonly-input { background-color: #f8fafc; border-color: #e2e8f0; cursor: not-allowed; }
-    .error-message { font-size: 0.875rem; margin-top: 0.25rem; display: none; }
-    .error-message.show { display: block; }
+    .delay-100 { animation-delay: 100ms; }
+    .delay-200 { animation-delay: 200ms; }
+    .delay-300 { animation-delay: 300ms; }
 
-    /* 通用悬浮提示优化 */
-    .hover-container {
-      position: relative;
-      width: 100%;
-    }
-    .hover-text {
-      max-width: 100%;
-      overflow: hidden;
-      text-overflow: ellipsis;
-      white-space: nowrap;
-      cursor: pointer;
-      transition: all 0.3s ease;
-      display: block;
-    }
-    .hover-text:hover { color: #3b82f6; }
-    .hover-tooltip {
-      position: fixed;
-      z-index: 9999;
-      background: #1f2937;
+    /* Modern Buttons */
+    .btn-primary {
+      background: linear-gradient(135deg, var(--primary) 0%, var(--secondary) 100%);
       color: white;
-      padding: 10px 14px;
-      border-radius: 8px;
-      font-size: 0.875rem;
-      max-width: 320px;
-      word-wrap: break-word;
-      box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
-      opacity: 0;
-      visibility: hidden;
-      transition: all 0.3s ease;
-      transform: translateY(-10px);
-      white-space: normal;
-      pointer-events: none;
-      line-height: 1.4;
+      transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+      border: none;
+      box-shadow: 0 4px 15px rgba(99, 102, 241, 0.3);
     }
-    .hover-tooltip.show {
-      opacity: 1;
-      visibility: visible;
-      transform: translateY(0);
+    .btn-primary:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 8px 20px rgba(99, 102, 241, 0.4);
     }
-    .hover-tooltip::before {
-      content: '';
-      position: absolute;
-      top: -6px;
-      left: 20px;
-      border-left: 6px solid transparent;
-      border-right: 6px solid transparent;
-      border-bottom: 6px solid #1f2937;
-    }
-    .hover-tooltip.tooltip-above::before {
-      top: auto;
-      bottom: -6px;
-      border-bottom: none;
-      border-top: 6px solid #1f2937;
-    }
+    .btn-primary:active { transform: translateY(0); }
 
-    /* 备注显示优化 */
-    .notes-container {
-      position: relative;
-      max-width: 200px;
-      width: 100%;
-    }
-    .notes-text {
-      max-width: 100%;
-      overflow: hidden;
-      text-overflow: ellipsis;
-      white-space: nowrap;
-      cursor: pointer;
-      transition: all 0.3s ease;
-      display: block;
-    }
-    .notes-text:hover { color: #3b82f6; }
-    .notes-tooltip {
-      position: fixed;
-      z-index: 9999;
-      background: #1f2937;
+    .btn-danger {
+      background: linear-gradient(135deg, #ef4444 0%, #dc2626 100%);
       color: white;
-      padding: 10px 14px;
-      border-radius: 8px;
-      font-size: 0.875rem;
-      max-width: 320px;
-      word-wrap: break-word;
-      box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
-      opacity: 0;
-      visibility: hidden;
-      transition: all 0.3s ease;
-      transform: translateY(-10px);
-      white-space: normal;
-      pointer-events: none;
-      line-height: 1.4;
+      transition: all 0.3s;
+      box-shadow: 0 4px 15px rgba(239, 68, 68, 0.3);
     }
-    .notes-tooltip.show {
-      opacity: 1;
-      visibility: visible;
-      transform: translateY(0);
-    }
-    .notes-tooltip::before {
-      content: '';
-      position: absolute;
-      top: -6px;
-      left: 20px;
-      border-left: 6px solid transparent;
-      border-right: 6px solid transparent;
-      border-bottom: 6px solid #1f2937;
-    }
-    .notes-tooltip.tooltip-above::before {
-      top: auto;
-      bottom: -6px;
-      border-bottom: none;
-      border-top: 6px solid #1f2937;
-    }
+    .btn-danger:hover { transform: translateY(-2px); box-shadow: 0 8px 20px rgba(239, 68, 68, 0.4); }
 
-    /* 农历显示样式 */
-    .lunar-display {
-      font-size: 0.75rem;
-      color: #6366f1;
-      margin-top: 2px;
-      opacity: 0;
-      transition: opacity 0.3s ease;
-    }
-    .lunar-display.show {
-      opacity: 1;
-    }
-    /* 自定义日期选择器样式 */
-    .hidden {
-      display: none !important;
-    }
-    
-    .custom-date-picker {
-      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
-      box-shadow: 0 10px 25px rgba(0, 0, 0, 0.15);
-      border-radius: 12px;
-      min-width: 380px;
-    }
-    
-    .custom-date-picker .calendar-day {
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      justify-content: center;
-      width: 48px;
-      height: 60px;
-      border-radius: 6px;
-      cursor: pointer;
-      transition: all 0.2s ease;
-      position: relative;
-      padding: 4px;
-      font-size: 14px;
-    }
-    
-    .custom-date-picker .calendar-day:hover {
-      background-color: #e0e7ff;
-      transform: scale(1.05);
-    }
-    
-    .custom-date-picker .calendar-day.selected {
-      background-color: #6366f1;
+    .btn-success {
+      background: linear-gradient(135deg, #10b981 0%, #059669 100%);
       color: white;
-      transform: scale(1.1);
-      box-shadow: 0 2px 8px rgba(99, 102, 241, 0.3);
+      transition: all 0.3s;
+      box-shadow: 0 4px 15px rgba(16, 185, 129, 0.3);
     }
-    
-    .custom-date-picker .calendar-day.today {
-      background-color: #e0e7ff;
-      color: #6366f1;
-      font-weight: 600;
-      border: 2px solid #6366f1;
-    }
-    
-    .custom-date-picker .calendar-day.other-month {
-      color: #d1d5db;
-    }
-    
-    .custom-date-picker .calendar-day .lunar-text {
-      font-size: 11px;
-      line-height: 1.2;
-      margin-top: 3px;
-      opacity: 0.85;
-      text-align: center;
-      font-weight: 500;
-    }
-    
-    .custom-date-picker .calendar-day.selected .lunar-text {
-      color: rgba(255, 255, 255, 0.9);
-    }
-    
-    .custom-date-picker .calendar-day.today .lunar-text {
-      color: #6366f1;
-    }
-    
-    /* 月份和年份选择器样式 */
-    .month-option, .year-option {
-      transition: all 0.2s ease;
-      border: 1px solid transparent;
-    }
-    
-    .month-option:hover, .year-option:hover {
-      background-color: #e0e7ff !important;
-      border-color: #6366f1;
-      color: #6366f1;
-    }
-    
-    .month-option.selected, .year-option.selected {
-      background-color: #6366f1 !important;
-      color: white;
-      border-color: #6366f1;
-    }
-    
-    .lunar-toggle {
+    .btn-success:hover { transform: translateY(-2px); box-shadow: 0 8px 20px rgba(16, 185, 129, 0.4); }
+
+    .btn-icon-only {
+      width: 36px;
+      height: 36px;
       display: inline-flex;
       align-items: center;
-      margin-bottom: 8px;
-      font-size: 0.875rem;
+      justify-content: center;
+      border-radius: 10px;
+      transition: all 0.2s;
     }
-    .lunar-toggle input[type="checkbox"] {
-      margin-right: 6px;
-    }
+    .btn-icon-only:hover { background-color: rgba(99, 102, 241, 0.1); }
 
-    /* 表格布局优化 */
+    /* Stylish Tables */
     .table-container {
-      width: 100%;
-      overflow: visible;
-    }
-
-    .table-container table {
-      table-layout: fixed;
-      width: 100%;
-    }
-
-    /* 防止表格内容溢出 */
-    .table-container td {
+      background: var(--glass-bg);
+      backdrop-filter: blur(20px);
+      border-radius: 20px;
+      border: 1px solid var(--glass-border);
       overflow: hidden;
-      word-wrap: break-word;
+      box-shadow: var(--glass-shadow);
+    }
+    
+    table { width: 100%; border-collapse: separate; border-spacing: 0; }
+    
+    thead th {
+      background: rgba(99, 102, 241, 0.1);
+      color: var(--primary);
+      font-weight: 600;
+      text-transform: uppercase;
+      font-size: 0.85rem;
+      padding: 1rem;
+      letter-spacing: 0.05em;
     }
 
-    .truncate {
-      overflow: hidden;
-      text-overflow: ellipsis;
-      white-space: nowrap;
+    tbody tr { transition: all 0.2s; }
+    tbody tr:hover { background: rgba(255, 255, 255, 0.4); transform: scale(1.01); }
+    
+    td {
+      padding: 1rem;
+      border-bottom: 1px solid rgba(160, 160, 160, 0.1);
+      color: #4b5563;
     }
 
-    /* 响应式优化 */
-    .responsive-table { table-layout: fixed; width: 100%; }
-    .td-content-wrapper { word-wrap: break-word; white-space: normal; text-align: left; width: 100%; }
-    .td-content-wrapper > * { text-align: left; } /* Align content left within the wrapper */
-
-    @media (max-width: 767px) {
-      .table-container { overflow-x: initial; } /* Override previous setting */
-      .responsive-table thead { display: none; }
-      .responsive-table tbody, .responsive-table tr, .responsive-table td { display: block; width: 100%; }
-      .responsive-table tr { margin-bottom: 1.5rem; border: 1px solid #ddd; border-radius: 0.5rem; box-shadow: 0 2px 4px rgba(0,0,0,0.05); overflow: hidden; }
-      .responsive-table td { display: flex; justify-content: flex-start; align-items: center; padding: 0.75rem 1rem; border-bottom: 1px solid #eee; }
-      .responsive-table td:last-of-type { border-bottom: none; }
-      .responsive-table td:before { content: attr(data-label); font-weight: 600; text-align: left; padding-right: 1rem; color: #374151; white-space: nowrap; }
-      .action-buttons-wrapper { display: flex; flex-wrap: wrap; gap: 0.5rem; justify-content: flex-end; }
-      
-      .notes-container, .hover-container {
-        max-width: 180px; /* Adjust for new layout */
-        text-align: right;
-      }
-      .td-content-wrapper .notes-text {
-        text-align: right;
-      }
-     }
-    @media (max-width: 767px) {
-      #systemTimeDisplay {
-        display: none !important;
-      }
+    /* Modal */
+    .modal-backdrop {
+      background: rgba(0, 0, 0, 0.3);
+      backdrop-filter: blur(5px);
     }
-    @media (min-width: 768px) {
-      .table-container {
-        overflow: visible;
-      }
-      /* .td-content-wrapper is aligned left by default */
+    
+    .modal-content {
+      background: rgba(255, 255, 255, 0.9);
+      backdrop-filter: blur(25px);
+      border: 1px solid white;
+      border-radius: 24px;
+      box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25);
+      animation: modalPop 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+    
+    @keyframes modalPop {
+      from { opacity: 0; transform: scale(0.95) translateY(10px); }
+      to { opacity: 1; transform: scale(1) translateY(0); }
     }
 
-    /* Toast 样式 */
+    /* Inputs */
+    input, select, textarea {
+      background: rgba(255, 255, 255, 0.6) !important;
+      border: 1px solid rgba(0, 0, 0, 0.1) !important;
+      backdrop-filter: blur(10px);
+      transition: all 0.3s !important;
+    }
+    input:focus, select:focus, textarea:focus {
+      background: rgba(255, 255, 255, 0.9) !important;
+      border-color: var(--primary) !important;
+      box-shadow: 0 0 0 3px rgba(99, 102, 241, 0.15) !important;
+    }
+
+    /* Toast */
     .toast {
-      position: fixed; top: 20px; right: 20px; padding: 12px 20px; border-radius: 8px;
-      color: white; font-weight: 500; z-index: 1000; transform: translateX(400px);
-      transition: all 0.3s ease-in-out; box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+      background: rgba(255, 255, 255, 0.9);
+      backdrop-filter: blur(20px);
+      border-left: 4px solid;
+      box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+      border-radius: 12px;
+      padding: 1rem 1.5rem;
+      font-weight: 500;
+      transform: translateX(400px);
+      transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+      color: #333;
     }
     .toast.show { transform: translateX(0); }
-    .toast.success { background-color: #10b981; }
-    .toast.error { background-color: #ef4444; }
-    .toast.info { background-color: #3b82f6; }
-    .toast.warning { background-color: #f59e0b; }
+    .toast.success { border-color: var(--success); }
+    .toast.error { border-color: var(--danger); }
+    
+    /* Other utilities */
+    .lunar-tag {
+      font-size: 0.75rem;
+      padding: 2px 8px;
+      background: rgba(99, 102, 241, 0.1);
+      color: var(--primary);
+      border-radius: 20px;
+    }
+    
+    /* Responsive Table Styles (kept from original) */
+    @media (max-width: 767px) {
+      .responsive-table thead { display: none; }
+      .responsive-table tbody tr {
+        display: block;
+        background: rgba(255, 255, 255, 0.5);
+        margin-bottom: 1rem;
+        border-radius: 16px;
+        padding: 1rem;
+      }
+      .responsive-table td {
+        display: flex;
+        justify-content: space-between;
+        padding: 0.5rem 0;
+        border: none;
+      }
+      .responsive-table td:before {
+        content: attr(data-label);
+        font-weight: 600;
+        color: var(--primary);
+      }
+    }
+    
+    /* Custom Date Picker Styles (glassified) */
+    .custom-date-picker {
+      background: rgba(255, 255, 255, 0.95);
+      backdrop-filter: blur(20px);
+      border: 1px solid white;
+      box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+      border-radius: 16px;
+    }
+    .custom-date-picker .calendar-day:hover { background-color: #e0e7ff; }
+    .custom-date-picker .calendar-day.selected { background-color: var(--primary); }
+    .custom-date-picker .calendar-day.today { border-color: var(--primary); color: var(--primary); }
+    
+    .lunar-display {
+      font-size: 0.75rem;
+      color: var(--primary);
+      margin-top: 4px;
+      font-weight: 500;
+    }
+
+    .hidden { display: none !important; }
   </style>
 </head>
 <body class="min-h-screen text-gray-800">
   <div id="toast-container"></div>
 
-  <nav class="bg-white shadow-md">
+  <nav class="shadow-sm">
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
       <div class="flex justify-between h-16">
         <div class="flex items-center">
@@ -964,7 +957,7 @@ const adminPage = `
       </div>
     </div>
     
-    <div class="table-container bg-white rounded-lg overflow-hidden">
+    <div class="table-container rounded-lg overflow-hidden">
       <div class="overflow-x-auto">
         <table class="w-full divide-y divide-gray-200 responsive-table">
           <thead class="bg-gray-50">
@@ -1000,8 +993,8 @@ const adminPage = `
   </div>
 
   <!-- 添加/编辑订阅的模态框 -->
-  <div id="subscriptionModal" class="fixed inset-0 bg-gray-600 bg-opacity-50 modal-container hidden flex items-center justify-center z-50">
-    <div class="bg-white rounded-lg shadow-xl max-w-2xl w-full mx-4 max-h-screen overflow-y-auto">
+  <div id="subscriptionModal" class="fixed inset-0 modal-backdrop hidden flex items-center justify-center z-50">
+    <div class="modal-content w-full max-w-2xl mx-4 max-h-screen overflow-y-auto">
       <div class="bg-gray-50 px-6 py-4 border-b border-gray-200 rounded-t-lg">
         <div class="flex items-center justify-between">
           <h3 id="modalTitle" class="text-lg font-medium text-gray-900">添加新订阅</h3>
@@ -3754,43 +3747,128 @@ const configPage = `
   <title>系统配置 - 订阅管理系统</title>
   <link href="https://cdnjs.cloudflare.com/ajax/libs/tailwindcss/2.2.19/tailwind.min.css" rel="stylesheet">
   <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
   <style>
-    .btn-primary { background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); transition: all 0.3s; }
-    .btn-primary:hover { transform: translateY(-2px); box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1); }
-    .btn-secondary { background: linear-gradient(135deg, #6b7280 0%, #4b5563 100%); transition: all 0.3s; }
-    .btn-secondary:hover { transform: translateY(-2px); box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1); }
-    
+    :root {
+      --primary: #6366f1;
+      --secondary: #8b5cf6;
+      --success: #10b981;
+      --warning: #f59e0b;
+      --danger: #ef4444;
+      --dark: #1f2937;
+      --light: #f3f4f6;
+      --glass-bg: rgba(255, 255, 255, 0.65);
+      --glass-border: rgba(255, 255, 255, 0.4);
+      --glass-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.15);
+    }
+
+    body {
+      background-image: url('https://github.com/KurisuRakko/picx-images-hosting/raw/master/IMG_0439-up2x-denoise3x.54y7qeyqwk.webp');
+      background-size: cover;
+      background-position: center;
+      background-attachment: fixed;
+      font-family: 'Inter', system-ui, -apple-system, sans-serif;
+      margin: 0;
+      color: #374151;
+    }
+
+    /* Glassmorphism Utilities */
+    .glass {
+      background: var(--glass-bg);
+      backdrop-filter: blur(20px) saturate(180%);
+      -webkit-backdrop-filter: blur(20px) saturate(180%);
+      border: 1px solid var(--glass-border);
+      box-shadow: var(--glass-shadow);
+    }
+
+    .glass-card {
+      background: var(--glass-bg);
+      backdrop-filter: blur(20px) saturate(180%);
+      -webkit-backdrop-filter: blur(20px) saturate(180%);
+      border: 1px solid var(--glass-border);
+      box-shadow: var(--glass-shadow);
+      border-radius: 20px;
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+    }
+
+    /* Navigation */
+    nav {
+      background: rgba(255, 255, 255, 0.75) !important;
+      backdrop-filter: blur(20px) !important;
+      border-bottom: 1px solid var(--glass-border);
+      position: sticky;
+      top: 0;
+      z-index: 50;
+      box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05);
+    }
+
+    /* Modern Buttons */
+    .btn-primary {
+      background: linear-gradient(135deg, var(--primary) 0%, var(--secondary) 100%);
+      color: white;
+      transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+      border: none;
+      box-shadow: 0 4px 15px rgba(99, 102, 241, 0.3);
+    }
+    .btn-primary:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 8px 20px rgba(99, 102, 241, 0.4);
+    }
+
+    /* Inputs */
+    input, select {
+      background: rgba(255, 255, 255, 0.6) !important;
+      border: 1px solid rgba(0, 0, 0, 0.1) !important;
+      backdrop-filter: blur(10px);
+      transition: all 0.3s !important;
+    }
+    input:focus, select:focus {
+      background: rgba(255, 255, 255, 0.9) !important;
+      border-color: var(--primary) !important;
+      box-shadow: 0 0 0 3px rgba(99, 102, 241, 0.15) !important;
+    }
+
+    /* Toast */
     .toast {
-      position: fixed; top: 20px; right: 20px; padding: 12px 20px; border-radius: 8px;
-      color: white; font-weight: 500; z-index: 1000; transform: translateX(400px);
-      transition: all 0.3s ease-in-out; box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+      background: rgba(255, 255, 255, 0.9);
+      backdrop-filter: blur(20px);
+      border-left: 4px solid;
+      box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+      border-radius: 12px;
+      padding: 1rem 1.5rem;
+      font-weight: 500;
+      transform: translateX(400px);
+      transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+      color: #333;
     }
     .toast.show { transform: translateX(0); }
-    .toast.success { background-color: #10b981; }
-    .toast.error { background-color: #ef4444; }
-    .toast.info { background-color: #3b82f6; }
-    .toast.warning { background-color: #f59e0b; }
+    .toast.success { border-color: var(--success); }
+    .toast.error { border-color: var(--danger); }
+    .toast.info { border-color: #3b82f6; }
+    .toast.warning { border-color: var(--warning); }
     
     .config-section { 
-      border: 1px solid #e5e7eb; 
-      border-radius: 8px; 
-      padding: 16px; 
+      border: 1px solid transparent; 
+      border-radius: 12px; 
+      padding: 20px; 
       margin-bottom: 24px; 
+      background: rgba(255,255,255,0.4);
+      transition: all 0.3s;
     }
     .config-section.active { 
-      background-color: #f8fafc; 
-      border-color: #6366f1; 
+      background: rgba(255,255,255,0.6); 
+      border-color: var(--primary); 
+      box-shadow: 0 4px 12px rgba(99, 102, 241, 0.1);
     }
     .config-section.inactive { 
-      background-color: #f9fafb; 
       opacity: 0.7; 
     }
   </style>
 </head>
-<body class="bg-gray-100 min-h-screen">
+<body class="min-h-screen">
   <div id="toast-container"></div>
 
-  <nav class="bg-white shadow-md">
+  <nav class="shadow-sm">
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
       <div class="flex justify-between h-16">
         <div class="flex items-center">
@@ -3817,7 +3895,7 @@ const configPage = `
   </nav>
   
   <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
-    <div class="bg-white rounded-lg shadow-md p-6">
+    <div class="glass-card p-8">
       <h2 class="text-2xl font-bold text-gray-800 mb-6">系统配置</h2>
       
       <form id="configForm" class="space-y-8">
@@ -4652,48 +4730,101 @@ function dashboardPage() {
   <title>仪表盘 - SubsTracker</title>
   <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
   <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
   <style>
-    .btn-primary { background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); transition: all 0.3s; }
-    .btn-primary:hover { transform: translateY(-2px); box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1); }
-    .stat-card{background:white;border-radius:12px;padding:1.5rem;box-shadow:0 2px 8px rgba(0,0,0,0.1);transition:transform 0.2s,box-shadow 0.2s}
-    .stat-card:hover{transform:translateY(-4px);box-shadow:0 4px 16px rgba(0,0,0,0.15)}
-    .stat-card-header{color:#6b7280;font-size:0.875rem;font-weight:500;text-transform:uppercase;letter-spacing:0.05em;margin-bottom:0.5rem}
-    .stat-card-value{font-size:2rem;font-weight:700;color:#1f2937;margin-bottom:0.25rem}
+    :root {
+      --primary: #6366f1;
+      --secondary: #8b5cf6;
+      --success: #10b981;
+      --warning: #f59e0b;
+      --danger: #ef4444;
+      --dark: #1f2937;
+      --light: #f3f4f6;
+      --glass-bg: rgba(255, 255, 255, 0.65);
+      --glass-border: rgba(255, 255, 255, 0.4);
+      --glass-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.15);
+    }
+
+    body {
+      background-image: url('https://github.com/KurisuRakko/picx-images-hosting/raw/master/IMG_0439-up2x-denoise3x.54y7qeyqwk.webp');
+      background-size: cover;
+      background-position: center;
+      background-attachment: fixed;
+      font-family: 'Inter', system-ui, -apple-system, sans-serif;
+      margin: 0;
+      color: #374151;
+    }
+
+    /* Glass Utilities */
+    .glass-card {
+      background: var(--glass-bg);
+      backdrop-filter: blur(20px) saturate(180%);
+      -webkit-backdrop-filter: blur(20px) saturate(180%);
+      border: 1px solid var(--glass-border);
+      box-shadow: var(--glass-shadow);
+      border-radius: 20px;
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+    }
+
+    /* Dashboard Specifics */
+    .stat-card {
+        background: rgba(255,255,255,0.4);
+        backdrop-filter: blur(10px);
+        border: 1px solid rgba(255,255,255,0.5);
+        border-radius: 20px;
+        padding: 1.5rem;
+        box-shadow: 0 4px 15px rgba(0,0,0,0.05);
+        transition: transform 0.2s, box-shadow 0.2s;
+    }
+    .stat-card:hover {
+        transform: translateY(-4px);
+        background: rgba(255,255,255,0.6);
+        box-shadow: 0 10px 25px rgba(99, 102, 241, 0.15);
+        border-color: var(--primary);
+    }
+    
+    .stat-card-header{color:#6b7280;font-size:0.875rem;font-weight:600;text-transform:uppercase;letter-spacing:0.05em;margin-bottom:0.5rem}
+    .stat-card-value{font-size:2rem;font-weight:700;color:#1f2937;margin-bottom:0.25rem; background: linear-gradient(135deg, #4f46e5 0%, #7c3aed 100%); -webkit-background-clip: text; -webkit-text-fill-color: transparent;}
     .stat-card-subtitle{color:#9ca3af;font-size:0.875rem}
-    .stat-card-trend{display:inline-flex;align-items:center;gap:0.25rem;font-size:0.875rem;margin-top:0.5rem;padding:0.25rem 0.5rem;border-radius:6px}
-    .stat-card-trend.up{color:#10b981;background:#d1fae5}
-    .stat-card-trend.down{color:#ef4444;background:#fee2e2}
-    .stat-card-trend.flat{color:#6b7280;background:#f3f4f6}
-    .list-item{display:flex;align-items:center;justify-content:space-between;padding:1rem;border-radius:8px;transition:background 0.2s}
-    .list-item:hover{background:#f9fafb}
-    .list-item:not(:last-child){border-bottom:1px solid #f3f4f6}
-    .list-item-content{flex:1}
-    .list-item-name{font-weight:600;color:#1f2937;margin-bottom:0.25rem}
-    .list-item-meta{display:flex;align-items:center;gap:1rem;font-size:0.875rem;color:#6b7280;flex-wrap:wrap}
+    
+    .stat-card-trend{display:inline-flex;align-items:center;gap:0.25rem;font-size:0.875rem;margin-top:0.5rem;padding:0.25rem 0.75rem;border-radius:20px; font-weight: 500;}
+    .stat-card-trend.up{color:#059669;background:rgba(16, 185, 129, 0.1)}
+    .stat-card-trend.down{color:#dc2626;background:rgba(239, 68, 68, 0.1)}
+    .stat-card-trend.flat{color:#6b7280;background:rgba(243, 244, 246, 0.5)}
+    
+    .list-item{display:flex;align-items:center;justify-content:space-between;padding:1rem;border-radius:12px;transition:all 0.2s; border-bottom: 1px solid rgba(0,0,0,0.03);}
+    .list-item:hover{background:rgba(255,255,255,0.5); transform: scale(1.01);}
+    .list-item:last-child{border-bottom:none}
+    
+    .list-item-name{font-weight:600;color:#374151;margin-bottom:0.25rem}
     .list-item-amount{font-size:1.125rem;font-weight:700;color:#10b981}
-    .list-item-badge{display:inline-block;padding:0.25rem 0.75rem;border-radius:12px;font-size:0.75rem;font-weight:500;background:#e0e7ff;color:#4f46e5}
-    .ranking-item{margin-bottom:1rem}
-    .ranking-item-header{display:flex;justify-content:space-between;align-items:center;margin-bottom:0.5rem}
-    .ranking-item-name{font-weight:600;color:#1f2937}
-    .ranking-item-value{display:flex;align-items:center;gap:0.5rem;font-size:0.875rem}
-    .ranking-item-amount{font-weight:700;color:#1f2937}
-    .ranking-item-percentage{color:#10b981}
-    .ranking-progress{width:100%;height:8px;background:#e5e7eb;border-radius:4px;overflow:hidden}
+    .list-item-badge{display:inline-block;padding:0.25rem 0.75rem;border-radius:12px;font-size:0.75rem;font-weight:500;background:rgba(99, 102, 241, 0.1);color:var(--primary)}
+    
+    .ranking-item{margin-bottom:1rem; padding: 0.5rem 0;}
+    .ranking-progress{width:100%;height:8px;background:rgba(0,0,0,0.05);border-radius:4px;overflow:hidden}
     .ranking-progress-bar{height:100%;border-radius:4px;transition:width 0.6s ease}
     .ranking-progress-bar.color-1{background:linear-gradient(90deg,#6366f1,#8b5cf6)}
     .ranking-progress-bar.color-2{background:linear-gradient(90deg,#10b981,#059669)}
     .ranking-progress-bar.color-3{background:linear-gradient(90deg,#f59e0b,#d97706)}
     .ranking-progress-bar.color-4{background:linear-gradient(90deg,#ef4444,#dc2626)}
     .ranking-progress-bar.color-5{background:linear-gradient(90deg,#8b5cf6,#7c3aed)}
-    .empty-state{text-align:center;padding:3rem 1rem;color:#9ca3af}
-    .empty-state-icon{font-size:3rem;margin-bottom:1rem;opacity:0.5}
-    .empty-state-text{font-size:0.875rem}
-    .loading-skeleton{background:linear-gradient(90deg,#f3f4f6 25%,#e5e7eb 50%,#f3f4f6 75%);background-size:200% 100%;animation:loading 1.5s infinite;height:100px;border-radius:8px}
-    @keyframes loading{0%{background-position:200% 0}100%{background-position:-200% 0}}
+    
+    /* Navigation override */
+    nav {
+      background: rgba(255, 255, 255, 0.75) !important;
+      backdrop-filter: blur(20px) !important;
+      border-bottom: 1px solid var(--glass-border);
+      position: sticky;
+      top: 0;
+      z-index: 50;
+      box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05);
+    }
+
+    .loading-skeleton{background:linear-gradient(90deg,rgba(255,255,255,0.2) 25%,rgba(255,255,255,0.5) 50%,rgba(255,255,255,0.2) 75%);background-size:200% 100%;animation:loading 1.5s infinite;height:100px;border-radius:12px}
   </style>
 </head>
-<body class="bg-gray-50">
-  <nav class="bg-white shadow-md">
+<body class="min-h-screen text-gray-800">
+  <nav class="shadow-sm">
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
       <div class="flex justify-between h-16">
         <div class="flex items-center">
@@ -4730,7 +4861,7 @@ function dashboardPage() {
       <div class="loading-skeleton"></div>
     </div>
 
-    <div class="bg-white rounded-lg shadow-md overflow-hidden mb-6">
+    <div class="glass-card mb-6 overflow-hidden">
       <div class="px-6 py-4 border-b border-gray-200 flex items-center justify-between">
         <div class="flex items-center gap-2">
           <i class="fas fa-calendar-check text-blue-500"></i>
@@ -4743,7 +4874,7 @@ function dashboardPage() {
       </div>
     </div>
 
-    <div class="bg-white rounded-lg shadow-md overflow-hidden mb-6">
+    <div class="glass-card mb-6 overflow-hidden">
       <div class="px-6 py-4 border-b border-gray-200 flex items-center justify-between">
         <div class="flex items-center gap-2">
           <i class="fas fa-clock text-yellow-500"></i>
@@ -4757,7 +4888,7 @@ function dashboardPage() {
     </div>
 
     <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
-      <div class="bg-white rounded-lg shadow-md overflow-hidden">
+      <div class="glass-card overflow-hidden">
         <div class="px-6 py-4 border-b border-gray-200 flex items-center justify-between">
           <div class="flex items-center gap-2">
             <i class="fas fa-chart-bar text-purple-500"></i>
@@ -4770,7 +4901,7 @@ function dashboardPage() {
         </div>
       </div>
 
-      <div class="bg-white rounded-lg shadow-md overflow-hidden">
+      <div class="glass-card overflow-hidden">
         <div class="px-6 py-4 border-b border-gray-200 flex items-center justify-between">
           <div class="flex items-center gap-2">
             <i class="fas fa-folder text-green-500"></i>
